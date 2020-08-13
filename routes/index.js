@@ -4,6 +4,7 @@ const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const { catchErrors } = require('../handlers/errorHandlers');
+const { Mongoose } = require('mongoose');
 
 // Do work here
 router.get('/', catchErrors(storeController.getStores));
@@ -30,6 +31,8 @@ router.get('/tags', catchErrors(storeController.getStoresByTag));
 router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
 
 router.get('/login', userController.loginForm);
+router.post('/login', authController.login);
+
 router.get('/register', userController.registerForm);
 
 //validate registration data
@@ -37,7 +40,10 @@ router.get('/register', userController.registerForm);
 //log user in
 router.post('/register', 
     userController.validateRegister,
-    catchErrors(userController.register),
+    userController.register,
     authController.login);
+
+
+router.get('/logout', authController.logout);
 
 module.exports = router;
