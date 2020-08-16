@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 function searchResultsHTML(stores) {
     return stores.map(store => {
