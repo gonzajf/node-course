@@ -33,6 +33,9 @@ function typeAhead(search) {
                     console.log(html);
                     searchResults.innerHTML = html;
                 }
+            })
+            .catch(err => {
+                console.error(err);
             });
     });
 };
