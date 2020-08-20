@@ -1,6 +1,6 @@
 mixin reviewForm(store)
 
-    form.reviewer(action=`/review/${store._id}` method="post")
+    form.reviewer(action=`/reviews/${store._id}` method="post")
         textarea(name="text" placeholder="Did you try this place? Leave a review...")
         .reviewer__meta
             .reviewer__stars
