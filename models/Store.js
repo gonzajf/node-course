@@ -75,6 +75,21 @@ storeSchema.statics.getTagsList = function() {
     ]);
 }
 
+storeSchema.statics.getTopStores = function() {
+    return this.aggregate([
+       {$lookup: {from: 'reviews', localField: '_id', foreignField: 'store', as: 'reviews'}},
+       {$match: {'reviews.1': {$exists: true}}},
+       {$project: {
+           photo: '$$ROOT.photo',
+           name: '$$ROOT.name',
+           reviews: '$$ROOT.reviews',
+           averageRating: {$avg: '$reviews.rating'}
+       }},
+       {$sort: {averageRating: -1}},
+       {$limit: 10} 
+    ]);
+}
+
 storeSchema.virtual('reviews', {
     ref: 'Review', //what model to link
     localField: '_id', //which field in store model
